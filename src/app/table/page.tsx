@@ -6,7 +6,16 @@ import {
 	updateMeme,
 } from '@/utils/localStorageHelper'
 import { Meme } from '@/utils/types'
-import { Button, Spinner } from '@heroui/react'
+import {
+	Button,
+	Spinner,
+	Table,
+	TableBody,
+	TableCell,
+	TableColumn,
+	TableHeader,
+	TableRow,
+} from '@heroui/react'
 import { Edit } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -64,60 +73,56 @@ export default function TablePage() {
 					<Spinner size='lg' color='primary' />
 				</div>
 			) : (
-				<div className='overflow-x-auto rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.6)] border border-blue-500'>
-					<table className='min-w-full divide-y divide-gray-200'>
-						<thead className='bg-gray-800'>
-							<tr>
-								<th className='px-6 py-3 text-left text-xs font-medium text-blue-400 uppercase tracking-wider'>
-									ID
-								</th>
-								<th className='px-6 py-3 text-left text-xs font-medium text-blue-400 uppercase tracking-wider'>
-									Name
-								</th>
-								<th className='px-6 py-3 text-left text-xs font-medium text-blue-400 uppercase tracking-wider'>
-									Image URL
-								</th>
-								<th className='px-6 py-3 text-left text-xs font-medium text-blue-400 uppercase tracking-wider'>
-									Likes
-								</th>
-								<th className='px-6 py-3 text-left text-xs font-medium text-blue-400 uppercase tracking-wider'>
-									Actions
-								</th>
-							</tr>
-						</thead>
-						<tbody className='bg-gray-900 divide-y divide-gray-700'>
+				<div className='rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.6)] border border-blue-500 overflow-hidden'>
+					<Table
+						aria-label='Meme table'
+						classNames={{
+							base: 'min-w-full',
+							thead: 'bg-gray-800',
+							tbody: 'bg-gray-900 divide-y divide-gray-700',
+							tr: 'divide-x divide-gray-700',
+							th: 'text-left text-xs font-medium text-blue-400 uppercase tracking-wider py-3 px-6',
+							td: 'px-6 py-4 whitespace-nowrap text-sm text-gray-300',
+						}}
+					>
+						<TableHeader>
+							<TableColumn>ID</TableColumn>
+							<TableColumn>Name</TableColumn>
+							<TableColumn>Image URL</TableColumn>
+							<TableColumn>Likes</TableColumn>
+							<TableColumn>Actions</TableColumn>
+						</TableHeader>
+						<TableBody>
 							{memes.map((meme, index) => (
-								<tr
+								<TableRow
 									key={meme.id}
 									className={index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900'}
 								>
-									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-										{meme.id}
-									</td>
-									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-										{meme.name}
-									</td>
-									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-										{meme.imageUrl}
-									</td>
-									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-										{meme.likes}
-									</td>
-									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
+									<TableCell>{meme.id}</TableCell>
+									<TableCell>{meme.name}</TableCell>
+									<TableCell>{meme.imageUrl}</TableCell>
+									<TableCell>{meme.likes}</TableCell>
+									<TableCell>
 										<Button
 											color='primary'
 											size='sm'
-											startContent={<Edit size={16} />}
-											onClick={() => handleEditClick(meme)}
-											className='shadow-[0_0_5px_rgba(59,130,246,0.5)]'
+											startContent={<Edit size={16} className='mr-1' />}
+											onPress={() => handleEditClick(meme)}
+											className='bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 
+												text-white font-medium rounded-md px-4 py-2
+												shadow-[0_0_12px_rgba(59,130,246,0.6)] hover:shadow-[0_0_18px_rgba(59,130,246,0.8)]
+												border border-blue-400 
+												transition-all duration-300 ease-in-out
+												hover:scale-105 active:scale-95
+												cursor-pointer'
 										>
 											Edit
 										</Button>
-									</td>
-								</tr>
+									</TableCell>
+								</TableRow>
 							))}
-						</tbody>
-					</table>
+						</TableBody>
+					</Table>
 				</div>
 			)}
 

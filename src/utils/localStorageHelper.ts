@@ -1,7 +1,6 @@
 'use client'
 
 import { fetchMemes } from './api'
-import { initialMemeData } from './memeData'
 import { Meme } from './types'
 
 const MEME_DATA_KEY = 'meme_data'
@@ -20,15 +19,13 @@ export async function getMemeDataFromLocalStorage(): Promise<Meme[]> {
 				saveMemeDataToLocalStorage(apiMemes)
 				return apiMemes
 			} else {
-				// If API fails, fallback to initial data
-				saveMemeDataToLocalStorage(initialMemeData)
-				return initialMemeData
+				// If API fails, return empty array
+				return []
 			}
 		} catch (error) {
 			console.error('Error fetching memes from API:', error)
-			// Fallback to initial data
-			saveMemeDataToLocalStorage(initialMemeData)
-			return initialMemeData
+			// Return empty array
+			return []
 		}
 	}
 
@@ -36,7 +33,7 @@ export async function getMemeDataFromLocalStorage(): Promise<Meme[]> {
 		return JSON.parse(data)
 	} catch (error) {
 		console.error('Error parsing meme data from localStorage:', error)
-		return initialMemeData
+		return []
 	}
 }
 
