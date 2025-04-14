@@ -98,29 +98,36 @@ export default function EditMemeModal({
 			isOpen={isOpen}
 			onClose={onClose}
 			backdrop='blur'
+			size='md'
+			placement='center'
+			scrollBehavior='inside'
 			classNames={{
-				base: 'bg-gray-800 shadow-[0_0_15px_rgba(59,130,246,0.7)] border border-blue-500',
+				base: 'bg-gray-800 shadow-[0_0_15px_rgba(59,130,246,0.7)] border border-blue-500 max-h-[90vh] mx-auto my-auto',
 				header: 'border-b border-gray-700',
 				footer: 'border-t border-gray-700',
+				closeButton:
+					'hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500',
 			}}
 		>
 			<ModalContent>
-				<ModalHeader className='flex justify-between items-center'>
-					<h3 className='text-xl font-bold text-blue-400'>Edit Meme</h3>
+				<ModalHeader className='flex justify-between items-center py-3 sm:py-4'>
+					<h3 className='text-lg sm:text-xl font-bold text-blue-400'>
+						Edit Meme
+					</h3>
 					<Button
 						isIconOnly
 						variant='light'
 						color='default'
 						onPress={onClose}
-						className='bg-gray-800'
+						className='bg-gray-800 hover:bg-gray-700 cursor-pointer'
 					>
-						<X size={20} className='text-gray-400' />
+						<X size={18} className='text-gray-400' />
 					</Button>
 				</ModalHeader>
 
-				<ModalBody>
+				<ModalBody className='py-3 sm:py-4'>
 					<form id='edit-meme-form' onSubmit={handleSubmit}>
-						<div className='space-y-4'>
+						<div className='space-y-3 sm:space-y-4'>
 							<div>
 								<label
 									htmlFor='meme-name'
@@ -188,12 +195,12 @@ export default function EditMemeModal({
 					</form>
 				</ModalBody>
 
-				<ModalFooter>
+				<ModalFooter className='py-3 sm:py-4'>
 					<Button
 						color='default'
 						variant='flat'
 						onPress={onClose}
-						className='bg-gray-600 text-white hover:bg-gray-700'
+						className='bg-gray-600 text-white hover:bg-gray-700 cursor-pointer'
 					>
 						Cancel
 					</Button>
@@ -201,7 +208,7 @@ export default function EditMemeModal({
 						color='primary'
 						type='submit'
 						form='edit-meme-form'
-						className='bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]'
+						className='bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)] cursor-pointer'
 					>
 						Save Changes
 					</Button>
