@@ -5,6 +5,8 @@ export async function fetchMemes(): Promise<Meme[]> {
 		const response = await fetch('https://api.imgflip.com/get_memes')
 		const data = await response.json()
 
+		console.log(data)
+
 		if (data.success) {
 			// Take first 10 memes and transform them to our Meme format
 			const memes = data.data.memes.slice(0, 20).map((meme: any, index: number) => ({

@@ -15,7 +15,7 @@ import {
 	ModalFooter,
 	ModalHeader,
 } from '@heroui/react'
-import { X } from 'lucide-react'
+import { AlertCircle, X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
 interface EditMemeModalProps {
@@ -47,6 +47,9 @@ export default function EditMemeModal({
 		likes: null,
 	})
 
+	const [previewUrl, setPreviewUrl] = useState<string>('')
+	const [isPreviewError, setIsPreviewError] = useState<boolean>(false)
+
 	useEffect(() => {
 		if (meme) {
 			setFormData({
@@ -54,8 +57,25 @@ export default function EditMemeModal({
 				imageUrl: meme.imageUrl,
 				likes: meme.likes,
 			})
+			setPreviewUrl(meme.imageUrl)
 		}
 	}, [meme])
+
+	// Проверка URL и загрузка превью при изменении URL
+	useEffect(() => {
+		const validateUrl = async () => {
+			const error = validateImageUrl(formData.imageUrl)
+			setErrors(prev => ({ ...prev, imageUrl: error }))
+
+			// Если URL валиден, обновляем предпросмотр
+			if (!error && formData.imageUrl) {
+				setPreviewUrl(formData.imageUrl)
+				setIsPreviewError(false)
+			}
+		}
+
+		validateUrl()
+	}, [formData.imageUrl])
 
 	const validateForm = (): boolean => {
 		const newErrors = {
@@ -66,7 +86,12 @@ export default function EditMemeModal({
 
 		setErrors(newErrors)
 
-		return !newErrors.name && !newErrors.imageUrl && !newErrors.likes
+		return (
+			!newErrors.name &&
+			!newErrors.imageUrl &&
+			!newErrors.likes &&
+			!isPreviewError
+		)
 	}
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -89,7 +114,18 @@ export default function EditMemeModal({
 			...prev,
 			[field]: value,
 		}))
+
+		// Валидация при изменении
+		if (field === 'name') {
+			setErrors(prev => ({ ...prev, name: validateName(value as string) }))
+		} else if (field === 'likes') {
+			setErrors(prev => ({ ...prev, likes: validateLikes(value as number) }))
+		}
 	}
+
+	// Проверка возможности сохранения формы
+	const canSave =
+		!errors.name && !errors.imageUrl && !errors.likes && !isPreviewError
 
 	if (!meme) return null
 
@@ -164,11 +200,42 @@ export default function EditMemeModal({
 									placeholder='https://example.com/image.jpg'
 									className='bg-gray-700 text-white border-gray-600'
 									variant='bordered'
+									color={errors.imageUrl ? 'danger' : 'default'}
+									description={
+										errors.imageUrl ||
+										'Поддерживается: JPG, JPEG, PNG, GIF, WEBP'
+									}
 								/>
-								{errors.imageUrl && (
-									<p className='mt-1 text-sm text-red-500'>{errors.imageUrl}</p>
-								)}
 							</div>
+
+							{/* Предпросмотр изображения */}
+							{formData.imageUrl && !errors.imageUrl && (
+								<div className='mt-2'>
+									<label className='block text-sm font-medium text-gray-300 mb-2'>
+										Предпросмотр
+									</label>
+									<div className='relative w-full aspect-[4/3] bg-gray-700 rounded overflow-hidden'>
+										{previewUrl ? (
+											<img
+												src={previewUrl}
+												alt='Preview'
+												className='object-contain w-full h-full'
+												onError={() => setIsPreviewError(true)}
+												onLoad={() => setIsPreviewError(false)}
+											/>
+										) : null}
+
+										{isPreviewError && (
+											<div className='absolute inset-0 flex flex-col items-center justify-center text-red-400 p-4'>
+												<AlertCircle size={40} />
+												<p className='text-center mt-2'>
+													Невозможно загрузить изображение по указанной ссылке
+												</p>
+											</div>
+										)}
+									</div>
+								</div>
+							)}
 
 							<div>
 								<label
@@ -208,7 +275,8 @@ export default function EditMemeModal({
 						color='primary'
 						type='submit'
 						form='edit-meme-form'
-						className='bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)] cursor-pointer'
+						isDisabled={!canSave}
+						className='bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
 					>
 						Save Changes
 					</Button>
