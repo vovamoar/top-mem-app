@@ -2,14 +2,7 @@
 
 import { getMemeDataFromLocalStorage } from '@/utils/localStorageHelper'
 import { Meme } from '@/utils/types'
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	CardHeader,
-	Image,
-	Spinner,
-} from '@heroui/react'
+import { Card, Spinner } from '@heroui/react'
 import { Heart } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -49,43 +42,49 @@ export default function ListPage() {
 					{memes.map(meme => (
 						<Card
 							key={meme.id}
-							className='bg-gray-900 border border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:shadow-[0_0_15px_rgba(59,130,246,0.8)] hover:scale-105 transition-all duration-300 h-full flex flex-col min-w-0 w-full'
+							className='bg-gray-900 border border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:shadow-[0_0_15px_rgba(59,130,246,0.8)] hover:scale-105 transition-all duration-300 flex flex-col min-w-0 w-full overflow-hidden'
 							isPressable
 							onPress={() => window.open(meme.imageUrl, '_blank')}
 						>
-							<CardHeader className='p-0 overflow-hidden'>
-								<div className='aspect-square sm:aspect-[4/3]'>
-									<Image
-										src={meme.imageUrl}
-										alt={meme.name}
-										className='w-full h-full object-cover object-center'
-										radius='none'
-										fallbackSrc='https://placehold.co/400x300/0f172a/3b82f6?text=Image+Not+Available'
-									/>
+							<div className='relative w-full aspect-square sm:aspect-[4/3] overflow-hidden bg-gray-800'>
+								<img
+									src={meme.imageUrl}
+									alt={meme.name}
+									className='absolute inset-0 w-full h-full object-cover object-center'
+									onError={e => {
+										const target = e.target as HTMLImageElement
+										target.onerror = null // Prevent infinite loop
+										target.src =
+											'https://placehold.co/400x300/0f172a/3b82f6?text=Image+Not+Available'
+									}}
+								/>
+							</div>
+
+							<div className='flex flex-col p-2 sm:p-3 flex-grow justify-between'>
+								<div>
+									<h2 className='text-sm sm:text-base font-bold text-white mb-1 sm:mb-2 line-clamp-1 overflow-hidden text-ellipsis'>
+										{meme.name}
+									</h2>
+									<div className='flex items-center'>
+										<Heart className='h-3 w-3 sm:h-4 sm:w-4 text-red-500 mr-1 flex-shrink-0' />
+										<span className='text-xs sm:text-sm text-gray-300'>
+											{meme.likes} likes
+										</span>
+									</div>
 								</div>
-							</CardHeader>
-							<CardBody className='p-2 sm:p-3 lg:p-4 flex-grow'>
-								<h2 className='text-sm sm:text-base lg:text-lg font-bold text-white mb-1 sm:mb-2 line-clamp-1 overflow-hidden text-ellipsis'>
-									{meme.name}
-								</h2>
-								<div className='flex items-center'>
-									<Heart className='h-3 w-3 sm:h-4 sm:w-4 text-red-500 mr-1 flex-shrink-0' />
-									<span className='text-xs sm:text-sm text-gray-300'>
-										{meme.likes} likes
-									</span>
+
+								<div className='mt-2 pt-1 sm:pt-2 border-t border-gray-800 w-full'>
+									<a
+										href={meme.imageUrl}
+										target='_blank'
+										rel='noopener noreferrer'
+										className='text-xs sm:text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors block'
+										onClick={e => e.stopPropagation()}
+									>
+										View Original
+									</a>
 								</div>
-							</CardBody>
-							<CardFooter className='pt-0 pb-2 sm:pb-3 px-2 sm:px-3 lg:px-4 mt-auto'>
-								<a
-									href={meme.imageUrl}
-									target='_blank'
-									rel='noopener noreferrer'
-									className='text-xs sm:text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors'
-									onClick={e => e.stopPropagation()}
-								>
-									View Original
-								</a>
-							</CardFooter>
+							</div>
 						</Card>
 					))}
 				</div>
