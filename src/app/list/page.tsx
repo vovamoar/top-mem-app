@@ -35,8 +35,8 @@ export default function ListPage() {
 	}, [])
 
 	return (
-		<div className='space-y-6 px-2 sm:px-4'>
-			<h1 className='text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-8 text-white drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]'>
+		<div className='space-y-4 px-1 sm:px-4 max-w-full'>
+			<h1 className='text-2xl sm:text-3xl font-bold text-center mb-3 sm:mb-6 text-white drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]'>
 				Meme List
 			</h1>
 
@@ -45,40 +45,42 @@ export default function ListPage() {
 					<Spinner size='lg' color='primary' />
 				</div>
 			) : (
-				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'>
+				<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 w-full mx-auto'>
 					{memes.map(meme => (
 						<Card
 							key={meme.id}
-							className='bg-gray-900 border border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:shadow-[0_0_15px_rgba(59,130,246,0.8)] hover:scale-105 transition-all duration-300 h-full flex flex-col'
+							className='bg-gray-900 border border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:shadow-[0_0_15px_rgba(59,130,246,0.8)] hover:scale-105 transition-all duration-300 h-full flex flex-col min-w-0 w-full'
 							isPressable
 							onPress={() => window.open(meme.imageUrl, '_blank')}
 						>
-							<CardHeader className='p-0'>
-								<Image
-									src={meme.imageUrl}
-									alt={meme.name}
-									className='w-full h-36 sm:h-48 object-cover object-center'
-									radius='none'
-									fallbackSrc='https://placehold.co/400x300/0f172a/3b82f6?text=Image+Not+Available'
-								/>
+							<CardHeader className='p-0 overflow-hidden'>
+								<div className='aspect-square sm:aspect-[4/3]'>
+									<Image
+										src={meme.imageUrl}
+										alt={meme.name}
+										className='w-full h-full object-cover object-center'
+										radius='none'
+										fallbackSrc='https://placehold.co/400x300/0f172a/3b82f6?text=Image+Not+Available'
+									/>
+								</div>
 							</CardHeader>
-							<CardBody className='p-4 sm:p-5 flex-grow'>
-								<h2 className='text-lg sm:text-xl font-bold text-white mb-2 line-clamp-1'>
+							<CardBody className='p-2 sm:p-3 lg:p-4 flex-grow'>
+								<h2 className='text-sm sm:text-base lg:text-lg font-bold text-white mb-1 sm:mb-2 line-clamp-1 overflow-hidden text-ellipsis'>
 									{meme.name}
 								</h2>
 								<div className='flex items-center'>
-									<Heart className='h-4 w-4 sm:h-5 sm:w-5 text-red-500 mr-1' />
-									<span className='text-sm sm:text-base text-gray-300'>
+									<Heart className='h-3 w-3 sm:h-4 sm:w-4 text-red-500 mr-1 flex-shrink-0' />
+									<span className='text-xs sm:text-sm text-gray-300'>
 										{meme.likes} likes
 									</span>
 								</div>
 							</CardBody>
-							<CardFooter className='pt-0 pb-4 px-4 sm:px-5 mt-auto'>
+							<CardFooter className='pt-0 pb-2 sm:pb-3 px-2 sm:px-3 lg:px-4 mt-auto'>
 								<a
 									href={meme.imageUrl}
 									target='_blank'
 									rel='noopener noreferrer'
-									className='text-blue-400 hover:text-blue-300 hover:underline transition-colors text-sm sm:text-base'
+									className='text-xs sm:text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors'
 									onClick={e => e.stopPropagation()}
 								>
 									View Original
