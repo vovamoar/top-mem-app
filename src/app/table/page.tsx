@@ -138,7 +138,7 @@ export default function TablePage() {
 											{meme.imageUrl}
 										</TableCell>
 										<TableCell className='text-center'>{meme.likes}</TableCell>
-										<TableCell className='text-center'>
+										<TableCell className='text-center flex items-center justify-center'>
 											<Button
 												color='primary'
 												size='sm'
@@ -152,7 +152,7 @@ export default function TablePage() {
 													border border-blue-400 text-xs sm:text-sm
 													transition-all duration-300 ease-in-out
 													hover:scale-105 active:scale-95
-													cursor-pointer w-full sm:w-auto'
+													cursor-pointer w-full sm:w-auto flex items-center justify-center'
 											>
 												{isMobile ? <Edit size={14} /> : 'Edit'}
 											</Button>

@@ -15,12 +15,12 @@ export default function MainNavbar() {
 	return (
 		<Navbar className='bg-gray-900 border-b border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] px-6 py-4'>
 			<NavbarBrand>
-				<span className='font-semibold text-xl tracking-tight text-blue-400'>
+				<span className='hidden sm:block font-semibold text-xl tracking-tight text-blue-400'>
 					Meme Directory
 				</span>
 			</NavbarBrand>
 
-			<NavbarContent className='ml-auto'>
+			<NavbarContent className='flex justify-center sm:justify-end sm:ml-auto w-full sm:w-auto'>
 				<NavbarItem isActive={pathname === '/table'}>
 					<Link
 						href='/table'
