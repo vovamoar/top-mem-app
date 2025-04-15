@@ -18,14 +18,7 @@ I'll modify the Navbar to center the navigation items when "Meme Directory" is h
 
 ---
 
-```diff
-  			</NavbarBrand>
-  
-- 			<NavbarContent className='ml-auto'>
-+ 			<NavbarContent className='sm:ml-auto flex justify-center sm:justify-end'>
-  				<NavbarItem isActive={pathname === '/table'}>
-  					<Link
-```
+Cancelled
 
 ---
 
