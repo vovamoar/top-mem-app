@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #0a0b0e;
   --foreground: #e2e8f0;
   --primary: #3b82f6;
   --primary-glow: rgba(59, 130, 246, 0.5);
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono:
+    ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono',
+    'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 }
 
 @theme inline {
@@ -63,13 +63,14 @@ body {
 
 /* Neon border effect */
 .neon-border {
-  box-shadow: 0 0 10px var(--primary-glow), inset 0 0 10px var(--primary-glow);
+  box-shadow:
+    0 0 10px var(--primary-glow),
+    inset 0 0 10px var(--primary-glow);
   border: 1px solid var(--primary);
 }
 
 /* Animations */
 @keyframes pulse {
-
   0%,
   100% {
     opacity: 1;

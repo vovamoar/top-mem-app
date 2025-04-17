@@ -1,67 +1,11 @@
-# Meme Directory
+# <span align="left"> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" width="100" height="100"/> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="react" width="110" height="110"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/openapi/openapi-plain-wordmark.svg" alt="react" width="130" height="130"/> </a>
 
-A modern web application to browse and manage popular memes. This project showcases a collection of 10 popular memes displayed in both table and card list formats.
+![Alt-текст](./public/preview.png)
 
-## Features
+# TOP-MEM-APP
 
-- **Two Viewing Modes**:
-  - Table View: Displays memes in a tabular format with editing capabilities
-  - List View: Displays memes in a card grid with images
-- **Editing Capabilities**:
-  - Edit meme names, image URLs, and like counts
-  - Validation for all fields
-  - Changes persist in cookies
-- **Responsive Design**:
-  - Works well on mobile and desktop devices
-  - Modern neon-themed UI
+### [Site link] https://top-memes-app-production.up.railway.app/list)
 
-## Technical Details
+### Author
 
-- Built with Next.js and TypeScript
-- Styled with Tailwind CSS
-- Data persistence using cookies
-- Form validation for all fields
-- Responsive layout with mobile support
-
-## Running the Project
-
-1. Install dependencies:
-
-   ```
-   npm install
-   ```
-
-2. Run the development server:
-
-   ```
-   npm run dev
-   ```
-
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## Project Structure
-
-- `/src/app`: Main application pages
-- `/src/components`: Reusable UI components
-- `/src/utils`: Utility functions, types, and data
-- `/public`: Static assets
-
-## Requirements
-
-- Node.js 16+
-- Modern web browser (Chrome, Firefox, Edge)
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Volodymyr Babiichuk - https://volodymyrcodepro.online/
