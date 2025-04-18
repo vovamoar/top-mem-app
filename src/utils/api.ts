@@ -1,41 +1,41 @@
-import { Meme } from './types';
+import { Meme } from './types'
 
 type ImgflipMeme = {
-  id: string;
-  name: string;
-  url: string;
-  width: number;
-  height: number;
-  box_count: number;
-};
+  id: string
+  name: string
+  url: string
+  width: number
+  height: number
+  box_count: number
+}
 
 type ImgflipResponse = {
-  success: boolean;
+  success: boolean
   data: {
-    memes: ImgflipMeme[];
-  };
-};
+    memes: ImgflipMeme[]
+  }
+}
 
 export async function fetchMemes(): Promise<Meme[]> {
   try {
-    const response = await fetch('https://api.imgflip.com/get_memes');
-    const data: ImgflipResponse = await response.json();
+    const response = await fetch('https://api.imgflip.com/get_memes')
+    const data: ImgflipResponse = await response.json()
 
     if (data.success) {
-      const memes = data.data.memes.slice(0, 20).map((meme, index) => ({
+      const memes = data.data.memes.map((meme, index) => ({
         id: index + 1,
         name: meme.name,
         imageUrl: meme.url,
         likes: Math.floor(Math.random() * 100),
-      }));
+      }))
 
-      return memes;
+      return memes
     } else {
-      console.error('Failed to fetch memes from API');
-      return [];
+      console.error('Failed to fetch memes from API')
+      return []
     }
   } catch (error) {
-    console.error('Error fetching memes:', error);
-    return [];
+    console.error('Error fetching memes:', error)
+    return []
   }
 }
