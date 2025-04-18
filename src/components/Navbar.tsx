@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 
 export default function MainNavbar() {
   const pathname = usePathname();
+  console.log(pathname)
 
   return (
     <Navbar className="bg-gray-900 border-b border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] px-6 py-4">
@@ -16,6 +17,19 @@ export default function MainNavbar() {
       </NavbarBrand>
 
       <NavbarContent className="flex justify-center sm:justify-end sm:ml-auto w-full sm:w-auto">
+        <NavbarItem isActive={pathname === '/top-mems'}>
+          <Link
+            href="/top-mems"
+            className={`text-white hover:text-blue-300 px-4 py-2 rounded-lg transition-all duration-200 ${
+              pathname === '/top-mems'
+                ? 'bg-blue-900 shadow-[0_0_8px_rgba(59,130,246,0.7)] border border-blue-500'
+                : 'hover:bg-gray-800'
+            }`}
+          >
+            Top Mems
+          </Link>
+        </NavbarItem>
+
         <NavbarItem isActive={pathname === '/table'}>
           <Link
             href="/table"

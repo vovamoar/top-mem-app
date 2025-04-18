@@ -3,4 +3,5 @@ export interface Meme {
   name: string;
   imageUrl: string;
   likes: number;
+  captions: number;
 }
